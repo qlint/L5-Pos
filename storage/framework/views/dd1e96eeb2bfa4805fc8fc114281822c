@@ -1,0 +1,56 @@
+<?php $__env->startSection('content'); ?>
+<div class="container">
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<div class="panel panel-default">
+				<div class="panel-heading"><?php echo e(trans('supplier.list_suppliers')); ?></div>
+
+				<div class="panel-body">
+				<a class="btn btn-small btn-success" href="<?php echo e(URL::to('suppliers/create')); ?>"><?php echo e(trans('supplier.new_supplier')); ?></a>
+				<hr />
+<?php if(Session::has('message')): ?>
+    <p class="alert <?php echo e(Session::get('alert-class', 'alert-info')); ?>"><?php echo e(Session::get('message')); ?></p>
+<?php endif; ?>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <td><?php echo e(trans('supplier.company_name')); ?></td>
+            <td><?php echo e(trans('supplier.name')); ?></td>
+            <td><?php echo e(trans('supplier.email')); ?></td>
+            <td><?php echo e(trans('supplier.phone_number')); ?></td>
+            <td>&nbsp;</td>
+            <td><?php echo e(trans('supplier.avatar')); ?></td>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach($supplier as $value): ?>
+        <tr>
+            <td><?php echo e($value->company_name); ?></td>
+            <td><?php echo e($value->name); ?></td>
+            <td><?php echo e($value->email); ?></td>
+            <td><?php echo e($value->phone_number); ?></td>
+            <td>
+
+                <a class="btn btn-small btn-info" href="<?php echo e(URL::to('suppliers/' . $value->id . '/edit')); ?>"><?php echo e(trans('supplier.edit')); ?></a>
+                <?php echo Form::open(array('url' => 'suppliers/' . $value->id, 'class' => 'pull-right')); ?>
+
+                    <?php echo Form::hidden('_method', 'DELETE'); ?>
+
+                    <?php echo Form::submit(trans('supplier.delete'), array('class' => 'btn btn-warning')); ?>
+
+                <?php echo Form::close(); ?>
+
+            </td>
+            <td><?php echo Html::image(url() . '/images/suppliers/' . $value->avatar, 'a picture', array('class' => 'thumb')); ?></td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,53 @@
+<?php $__env->startSection('content'); ?>
+<div class="container">
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<div class="panel panel-default">
+				<div class="panel-heading">Dashboard</div>
+
+				<div class="panel-body">
+					<?php echo e(trans('dashboard.welcome')); ?>
+
+					<hr />
+					<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><?php echo e(trans('dashboard.statistics')); ?></h3>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+    	<div class="col-md-4">
+    		<div class="well"><?php echo e(trans('dashboard.total_employees')); ?> : <?php echo e($employees); ?></div>
+    	</div>
+    	<div class="col-md-4">
+    		<div class="well"><?php echo e(trans('dashboard.total_customers')); ?> : <?php echo e($customers); ?></div>
+    	</div>
+    	<div class="col-md-4">
+    		<div class="well"><?php echo e(trans('dashboard.total_suppliers')); ?> : <?php echo e($suppliers); ?></div>
+    	</div>
+    </div>
+  
+    <div class="row">
+      <div class="col-md-3">
+        <div class="well"><?php echo e(trans('dashboard.total_items')); ?> : <?php echo e($items); ?></div>
+      </div>
+      <div class="col-md-3">
+        <div class="well"><?php echo e(trans('dashboard.total_item_kits')); ?> : <?php echo e($item_kits); ?></div>
+      </div>
+      <div class="col-md-3">
+        <div class="well"><?php echo e(trans('dashboard.total_receivings')); ?> : <?php echo e($receivings); ?></div>
+      </div>
+      <div class="col-md-3">
+        <div class="well"><?php echo e(trans('dashboard.total_sales')); ?> : <?php echo e($sales); ?></div>
+      </div>
+    </div>
+
+</div>
+</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

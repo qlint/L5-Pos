@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html ng-app="tutapos">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>POS System</title>
+
+	<link href="<?php echo e(asset('/css/app.css')); ?>" rel="stylesheet">
+	<link href="<?php echo e(asset('/css/footer.css')); ?>" rel="stylesheet">
+	<!-- Fonts -->
+	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+	<link rel="shortcut icon" href="http://tutahosting.net/wp-content/uploads/2015/01/tutaico.png" type="image/x-icon" />
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle Navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="<?php echo e(url('/')); ?>">MyPOS</a>
+			</div>
+
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="<?php echo e(url('/')); ?>"><?php echo e(trans('menu.dashboard')); ?></a></li>
+					<?php if(Auth::check()): ?>
+						<li><a href="<?php echo e(url('/customers')); ?>"><?php echo e(trans('menu.customers')); ?></a></li>
+						<li><a href="<?php echo e(url('/items')); ?>"><?php echo e(trans('menu.items')); ?></a></li>
+						<li><a href="<?php echo e(url('/item-kits')); ?>"><?php echo e(trans('menu.item_kits')); ?></a></li>
+						<li><a href="<?php echo e(url('/suppliers')); ?>"><?php echo e(trans('menu.suppliers')); ?></a></li>
+						<li><a href="<?php echo e(url('/receivings')); ?>"><?php echo e(trans('menu.receivings')); ?></a></li>
+						<li><a href="<?php echo e(url('/sales')); ?>"><?php echo e(trans('menu.sales')); ?></a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?php echo e(trans('menu.reports')); ?> <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="<?php echo e(url('/reports/receivings')); ?>"><?php echo e(trans('menu.receivings_report')); ?></a></li>
+								<li><a href="<?php echo e(url('/reports/sales')); ?>"><?php echo e(trans('menu.sales_report')); ?></a></li>
+							</ul>
+						</li>
+						<li><a href="<?php echo e(url('/employees')); ?>"><?php echo e(trans('menu.employees')); ?></a></li>
+					<?php endif; ?>
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+					<?php if(Auth::guest()): ?>
+						<li><a href="<?php echo e(url('/auth/login')); ?>">Login</a></li>
+					<?php else: ?>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?php echo e(Auth::user()->name); ?> <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="<?php echo e(url('/tutapos-settings')); ?>"><?php echo e(trans('menu.application_settings')); ?></a></li>
+								<li class="divider"></li>
+								<li><a href="<?php echo e(url('/auth/logout')); ?>"><?php echo e(trans('menu.logout')); ?></a></li>
+							</ul>
+						</li>
+					<?php endif; ?>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<?php echo $__env->yieldContent('content'); ?>
+
+	<footer class="footer hidden-print">
+      <div class="container">
+        <p class="text-muted">You are using <a href="http://github.com/qlint/L5-Pos">MyPOS</a> extended by <a href="http://github.com/qlint">Clint Arianda</a>.
+        </p>
+      </div>
+    </footer>
+	<!-- Scripts -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<?php $__env->startSection('content'); ?>
+<div class="container">
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<div class="panel panel-default">
+				<div class="panel-heading"><?php echo e(trans('employee.list_employees')); ?></div>
+
+				<div class="panel-body">
+				<a class="btn btn-small btn-success" href="<?php echo e(URL::to('employees/create')); ?>"><?php echo e(trans('employee.new_employee')); ?></a>
+				<hr />
+<?php if(Session::has('message')): ?>
+	<p class="alert <?php echo e(Session::get('alert-class', 'alert-info')); ?>"><?php echo e(Session::get('message')); ?></p>
+<?php endif; ?>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <td><?php echo e(trans('employee.person_id')); ?></td>
+            <td><?php echo e(trans('employee.name')); ?></td>
+            <td><?php echo e(trans('employee.email')); ?></td>
+            <td>&nbsp;</td>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach($employee as $value): ?>
+        <tr>
+            <td><?php echo e($value->id); ?></td>
+            <td><?php echo e($value->name); ?></td>
+            <td><?php echo e($value->email); ?></td>
+            <td>
+
+                <a class="btn btn-small btn-info" href="<?php echo e(URL::to('employees/' . $value->id . '/edit')); ?>"><?php echo e(trans('employee.edit')); ?></a>
+                <?php echo Form::open(array('url' => 'employees/' . $value->id, 'class' => 'pull-right')); ?>
+
+                    <?php echo Form::hidden('_method', 'DELETE'); ?>
+
+                    <?php echo Form::submit(trans('employee.delete'), array('class' => 'btn btn-warning')); ?>
+
+                <?php echo Form::close(); ?>
+
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

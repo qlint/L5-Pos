@@ -1,0 +1,71 @@
+<?php $__env->startSection('content'); ?>
+<?php echo Html::script('js/angular.min.js', array('type' => 'text/javascript')); ?>
+
+<?php echo Html::script('js/app.js', array('type' => 'text/javascript')); ?>
+
+<style>
+table td {
+    border-top: none !important;
+}
+</style>
+<div class="container-fluid">
+   <div class="row">
+        <div class="col-md-12" style="text-align:center">
+            TutaPOS - Tuta Point of Sale           
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <?php echo e(trans('sale.customer')); ?>: <?php echo e($sales->customer->name); ?><br />
+            <?php echo e(trans('sale.sale_id')); ?>: SALE<?php echo e($saleItemsData->sale_id); ?><br />
+            <?php echo e(trans('sale.employee')); ?>: <?php echo e($sales->user->name); ?><br />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+           <table class="table">
+                <tr>
+                    <td><?php echo e(trans('sale.item')); ?></td>
+                    <td><?php echo e(trans('sale.price')); ?></td>
+                    <td><?php echo e(trans('sale.qty')); ?></td>
+                    <td><?php echo e(trans('sale.total')); ?></td>
+                </tr>
+                <?php foreach($saleItems as $value): ?>
+                <tr>
+                    <td><?php echo e($value->item->item_name); ?></td>
+                    <td><?php echo e($value->selling_price); ?></td>
+                    <td><?php echo e($value->quantity); ?></td>
+                    <td><?php echo e($value->total_selling); ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <?php echo e(trans('sale.payment_type')); ?>: <?php echo e($sales->payment_type); ?>
+
+        </div>
+    </div>
+    <hr class="hidden-print"/>
+    <div class="row">
+        <div class="col-md-8">
+            &nbsp;
+        </div>
+        <div class="col-md-2">
+            <button type="button" onclick="printInvoice()" class="btn btn-info pull-right hidden-print"><?php echo e(trans('sale.print')); ?></button> 
+        </div>
+        <div class="col-md-2">
+            <a href="<?php echo e(url('/sales')); ?>" type="button" class="btn btn-info pull-right hidden-print"><?php echo e(trans('sale.new_sale')); ?></a>
+        </div>
+    </div>
+</div>
+<script>
+function printInvoice() {
+    window.print();
+}
+</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

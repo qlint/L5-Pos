@@ -1,0 +1,95 @@
+<?php $__env->startSection('content'); ?>
+<div class="container">
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<div class="panel panel-default">
+				<div class="panel-heading"><?php echo e(trans('customer.new_customer')); ?></div>
+				<div class="panel-body">
+					<?php echo Html::ul($errors->all()); ?>
+
+
+					<?php echo Form::open(array('url' => 'customers', 'files' => true)); ?>
+
+
+					<div class="form-group">
+					<?php echo Form::label('name', trans('customer.name') .' *'); ?>
+
+					<?php echo Form::text('name', Input::old('name'), array('class' => 'form-control')); ?>
+
+					</div>
+
+					<div class="form-group">
+					<?php echo Form::label('email', trans('customer.email')); ?>
+
+					<?php echo Form::text('email', Input::old('email'), array('class' => 'form-control')); ?>
+
+					</div>
+
+					<div class="form-group">
+					<?php echo Form::label('phone_number', trans('customer.phone_number')); ?>
+
+					<?php echo Form::text('phone_number', Input::old('phone_number'), array('class' => 'form-control')); ?>
+
+					</div>
+
+					<div class="form-group">
+					<?php echo Form::label('avatar', trans('customer.choose_avatar')); ?>
+
+					<?php echo Form::file('avatar', Input::old('avatar'), array('class' => 'form-control')); ?>
+
+					</div>
+
+					<div class="form-group">
+					<?php echo Form::label('address', trans('customer.address')); ?>
+
+					<?php echo Form::text('address', Input::old('address'), array('class' => 'form-control')); ?>
+
+					</div>
+
+					<div class="form-group">
+					<?php echo Form::label('city', trans('customer.city')); ?>
+
+					<?php echo Form::text('city', Input::old('city'), array('class' => 'form-control')); ?>
+
+					</div>
+
+					<div class="form-group">
+					<?php echo Form::label('state', trans('customer.state')); ?>
+
+					<?php echo Form::text('state', Input::old('state'), array('class' => 'form-control')); ?>
+
+					</div>
+
+					<div class="form-group">
+					<?php echo Form::label('zip', trans('customer.zip')); ?>
+
+					<?php echo Form::text('zip', Input::old('zip'), array('class' => 'form-control')); ?>
+
+					</div>
+
+					<div class="form-group">
+					<?php echo Form::label('company_name', trans('customer.company_name')); ?>
+
+					<?php echo Form::text('company_name', Input::old('company_name'), array('class' => 'form-control')); ?>
+
+					</div>
+
+					<div class="form-group">
+					<?php echo Form::label('account', trans('customer.account') .' #'); ?>
+
+					<?php echo Form::text('account', Input::old('account'), array('class' => 'form-control')); ?>
+
+					</div>
+
+					<?php echo Form::submit(trans('customer.submit'), array('class' => 'btn btn-primary')); ?>
+
+
+					<?php echo Form::close(); ?>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

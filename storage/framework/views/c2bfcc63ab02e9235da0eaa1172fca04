@@ -1,0 +1,64 @@
+<?php $__env->startSection('content'); ?>
+<div class="container">
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<div class="panel panel-default">
+				<div class="panel-heading"><?php echo e(trans('item.list_items')); ?></div>
+
+				<div class="panel-body">
+				<a class="btn btn-small btn-success" href="<?php echo e(URL::to('items/create')); ?>"><?php echo e(trans('item.new_item')); ?></a>
+				<hr />
+<?php if(Session::has('message')): ?>
+	<div class="alert alert-info"><?php echo e(Session::get('message')); ?></div>
+<?php endif; ?>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <td><?php echo e(trans('item.item_id')); ?></td>
+            <td><?php echo e(trans('item.upc_ean_isbn')); ?></td>
+            <td><?php echo e(trans('item.item_name')); ?></td>
+            <td><?php echo e(trans('item.size')); ?></td>
+            <td><?php echo e(trans('item.cost_price')); ?></td>
+            <td><?php echo e(trans('item.selling_price')); ?></td>
+            <td><?php echo e(trans('item.quantity')); ?></td>
+            <td>&nbsp;</td>
+            <td><?php echo e(trans('item.avatar')); ?></td>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach($item as $value): ?>
+        <tr>
+            <td><?php echo e($value->id); ?></td>
+            <td><?php echo e($value->upc_ean_isbn); ?></td>
+            <td><?php echo e($value->item_name); ?></td>
+            <td><?php echo e($value->size); ?></td>
+            <td><?php echo e($value->cost_price); ?></td>
+            <td><?php echo e($value->selling_price); ?></td>
+            <td><?php echo e($value->quantity); ?></td>
+            <td>
+
+                <a class="btn btn-small btn-success" href="<?php echo e(URL::to('inventory/' . $value->id . '/edit')); ?>"><?php echo e(trans('item.inventory')); ?></a>
+                <a class="btn btn-small btn-info" href="<?php echo e(URL::to('items/' . $value->id . '/edit')); ?>"><?php echo e(trans('item.edit')); ?></a>
+                <?php echo Form::open(array('url' => 'items/' . $value->id, 'class' => 'pull-right')); ?>
+
+                    <?php echo Form::hidden('_method', 'DELETE'); ?>
+
+                    <?php echo Form::submit(trans('item.delete'), array('class' => 'btn btn-warning')); ?>
+
+                <?php echo Form::close(); ?>
+
+            </td>
+            <td><?php echo Html::image(url() . '/images/items/' . $value->avatar, 'a picture', array('class' => 'thumb')); ?></td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

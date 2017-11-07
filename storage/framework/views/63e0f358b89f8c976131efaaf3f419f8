@@ -1,0 +1,82 @@
+<?php $__env->startSection('content'); ?>
+<div class="container">
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<div class="panel panel-default">
+				<div class="panel-heading"><?php echo e(trans('report-sale.reports')); ?> - <?php echo e(trans('report-sale.sales_report')); ?></div>
+
+				<div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="well well-sm"><?php echo e(trans('report-sale.grand_total')); ?>: <?php echo e(DB::table('sale_items')->sum('total_selling')); ?></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="well well-sm"><?php echo e(trans('report-sale.grand_profit')); ?>: <?php echo e(DB::table('sale_items')->sum('total_selling') - DB::table('sale_items')->sum('total_cost')); ?></div>
+                        </div>
+                    </div>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <td><?php echo e(trans('report-sale.sale_id')); ?></td>
+            <td><?php echo e(trans('report-sale.date')); ?></td>
+            <td><?php echo e(trans('report-sale.items_purchased')); ?></td>
+            <td><?php echo e(trans('report-sale.sold_by')); ?></td>
+            <td><?php echo e(trans('report-sale.sold_to')); ?></td>
+            <td><?php echo e(trans('report-sale.total')); ?></td>
+            <td><?php echo e(trans('report-sale.profit')); ?></td>
+            <td><?php echo e(trans('report-sale.payment_type')); ?></td>
+            <td><?php echo e(trans('report-sale.comments')); ?></td>
+            <td>&nbsp;</td>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach($saleReport as $value): ?>
+        <tr>
+            <td><?php echo e($value->id); ?></td>
+            <td><?php echo e($value->created_at); ?></td>
+            <td><?php echo e(DB::table('sale_items')->where('sale_id', $value->id)->sum('quantity')); ?></td>
+            <td><?php echo e($value->user->name); ?></td>
+            <td><?php echo e($value->customer->name); ?></td>
+            <td>$<?php echo e(DB::table('sale_items')->where('sale_id', $value->id)->sum('total_selling')); ?></td>
+            <td><?php echo e(DB::table('sale_items')->where('sale_id', $value->id)->sum('total_selling') - DB::table('sale_items')->where('sale_id', $value->id)->sum('total_cost')); ?></td>
+            <td><?php echo e($value->payment_type); ?></td>
+            <td><?php echo e($value->comments); ?></td>
+            <td>
+                <a class="btn btn-small btn-info" data-toggle="collapse" href="#detailedSales<?php echo e($value->id); ?>" aria-expanded="false" aria-controls="detailedReceivings">
+                    <?php echo e(trans('report-sale.detail')); ?></a>
+            </td>
+        </tr>
+        
+            <tr class="collapse" id="detailedSales<?php echo e($value->id); ?>">
+                <td colspan="10">
+                    <table class="table">
+                        <tr>
+                            <td><?php echo e(trans('report-sale.item_id')); ?></td>
+                            <td><?php echo e(trans('report-sale.item_name')); ?></td>
+                            <td><?php echo e(trans('report-sale.quantity_purchase')); ?></td>
+                            <td><?php echo e(trans('report-sale.total')); ?></td>
+                            <td><?php echo e(trans('report-sale.profit')); ?></td>
+                        </tr>
+                        <?php foreach(ReportSalesDetailed::sale_detailed($value->id) as $SaleDetailed): ?>
+                        <tr>
+                            <td><?php echo e($SaleDetailed->item_id); ?></td>
+                            <td><?php echo e($SaleDetailed->item->item_name); ?></td>
+                            <td><?php echo e($SaleDetailed->quantity); ?></td>
+                            <td><?php echo e($SaleDetailed->selling_price * $SaleDetailed->quantity); ?></td>
+                            <td><?php echo e(($SaleDetailed->quantity * $SaleDetailed->selling_price) - ($SaleDetailed->quantity * $SaleDetailed->cost_price)); ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </td>
+            </tr>
+
+    <?php endforeach; ?>
+    </tbody>
+</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
